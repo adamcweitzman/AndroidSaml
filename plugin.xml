@@ -12,9 +12,9 @@
     <issue>https://github.com/adamcweitzman/AndroidSaml/issues</issue>
 
     <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">
+        <config-file target="config.xml" parent="/*">
             <feature name="AndroidSaml">
-                <param name="android-package" value="com.adamweitzman.cordova.plugin.androidsaml"/>
+                <param name="android-package" value="com.adamweitzman.cordova.plugin.AndroidSaml"/>
             </feature>
         </config-file>
 
