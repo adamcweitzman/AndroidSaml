@@ -1,5 +1,5 @@
 // Empty constructor
-function AndroidSaml() {}
+var AndroidSaml = () => {};
 
 // The function that passes work along to native shells
 // Message is a string, duration may be 'long' or 'short'
