@@ -1,4 +1,4 @@
-package com.adamweitzman.cordova.plugin.AndroidSaml
+package com.adamweitzman.cordova.plugin.androidsaml
 // The native Toast API
 import android.widget.Toast;
 // Cordova-required packages
@@ -8,7 +8,7 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-public class ToastyPlugin extends CordovaPlugin {
+public class AndroidSaml extends CordovaPlugin {
   private static final String DURATION_LONG = "long";
   @Override
   public boolean execute(String action, JSONArray args,

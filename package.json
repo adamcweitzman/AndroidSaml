@@ -1,0 +1,26 @@
+{
+    "name": "cordova-plugin-androidsaml",
+    "version": "0.0.1",
+    "description": "An Android Cordova plugin with hooks into the web view to manipulate http requests and redirects",
+    "cordova": {
+      "id": "cordova-plugin-androidsaml",
+      "platforms": [
+        "android"
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/adamcweitzman/AndroidSaml"
+    },
+    "keywords": [
+      "Saml",
+      "ecosystem:cordova",
+      "cordova-android"
+    ],
+    "author": "Adam Weitzman <aweitzman@devonway.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/adamcweitzman/AndroidSaml/issues"
+    },
+    "homepage": "https://github.com/adamcweitzman/AndroidSaml"
+  }
