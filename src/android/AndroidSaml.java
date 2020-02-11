@@ -30,3 +30,6 @@ class Echo extends CordovaPlugin {
         }
     }
 }
+
+//NEXT TIME -->
+//plugin android saml is coming in but not recognizing the method
