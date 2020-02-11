@@ -10,7 +10,7 @@ import org.json.JSONObject;
 /**
 * This class echoes a string called from JavaScript.
 */
-class Echo extends CordovaPlugin {
+class AndroidSaml extends CordovaPlugin {
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
