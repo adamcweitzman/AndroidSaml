@@ -17,6 +17,9 @@
                 <param name="android-package" value="com.adamweitzman.cordova.plugin.AndroidSaml"/>
             </feature>
         </config-file>
+        <js-module name="AndroidSaml" src="www/AndroidSaml.js">
+            <clobbers target="AndroidSaml"/>
+        </js-module>
 
         <source-file src="src/android/AndroidSaml.java" target-dir="src/com/adamweitzman/cordova/plugin" />   
     </platform>
