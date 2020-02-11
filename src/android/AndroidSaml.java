@@ -1,4 +1,4 @@
-package com.adamweitzman.cordova.plugin.androidsaml
+package com.adamweitzman.cordova.plugin.androidsaml;
 // The native Toast API
 import android.widget.Toast;
 // Cordova-required packages
