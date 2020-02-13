@@ -2,21 +2,30 @@ package com.adamweitzman.cordova.plugin;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.HttpAuthHandler;
+import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 /**
 * This class echoes a string called from JavaScript.
 */
 public class AndroidSaml extends CordovaPlugin {
 
     private WebView inAppWebView;
-    private InAppBrowserClient currentClient;
+    private WebViewClient currentClient;
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
