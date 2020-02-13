@@ -31,7 +31,6 @@ public class AndroidSaml extends CordovaPlugin {
     private void echo(String message, CallbackContext callbackContext) {
             this.cordova.getActivity().runOnUiThread(new Runnable() {
 
-                @SuppressLint("NewApi")
                 @Override
                 public void run() {
                     currentClient.waitForBeforeload = false;
