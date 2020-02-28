@@ -51,7 +51,7 @@ public class AndroidSaml extends CordovaPlugin {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
 
-                setContentView(inAppWebView);
+//                setContentView(inAppWebView);
 
                 inAppWebView.loadUrl("file:///android_asset/index.html");
 
