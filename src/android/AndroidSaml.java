@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.CookieManager;
@@ -51,8 +52,11 @@ public class AndroidSaml extends CordovaPlugin {
                 }
             });
 
-        // WebView myWebView = new WebView(activityContext);
-        // setContentView(myWebView);
+        WebView myWebView = new WebView(activityContext);
+        myWebView.setLayoutParams(new ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(myWebView);
 
         // myWebView.loadUrl("https://www.google.com");
 
