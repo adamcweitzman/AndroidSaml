@@ -21,13 +21,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 /**
-* This class echoes a string called from JavaScript.
-*/
+ * This class echoes a string called from JavaScript.
+ */
 public class AndroidSaml extends CordovaPlugin {
 
     private WebView inAppWebView;
     private WebViewClient currentClient;
-    
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("echo")) {
@@ -39,24 +39,46 @@ public class AndroidSaml extends CordovaPlugin {
     }
 
     private void echo(String message, CallbackContext callbackContext) {
-            this.cordova.getActivity().runOnUiThread(new Runnable() {
+        this.cordova.getActivity().runOnUiThread(new Runnable() {
 
-                @Override
-                public void run() {
-                    currentClient.waitForBeforeload = false;
-                    inAppWebView.setWebViewClient(currentClient);
+            WebView myWebView = new WebView(activityContext);
+            setContentView(myWebView);
+            myWebView.loadUrl("https://www.google.com");
 
-                    // ((InAppBrowserClient)inAppWebView.getWebViewClient()).waitForBeforeload = false;
-                    
-                    // inAppWebView.loadUrl(url);
-                }
-            });
+            callbackContext.success(message + "coming from android");
 
-        WebView myWebView = new WebView(activityContext);
-        myWebView.setLayoutParams(new ViewGroup.LayoutParams(
+            WebView myWebView = new WebView(activityContext);
+            myWebView.setLayoutParams(new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT));
-        setContentView(myWebView);
+            setContentView(myWebView);
+
+
+
+
+
+
+
+//            @Override
+//            public void run() {
+//
+//
+//
+//
+//
+//
+//
+//
+//                currentClient.waitForBeforeload = false;
+//                inAppWebView.setWebViewClient(currentClient);
+//
+//                // ((InAppBrowserClient)inAppWebView.getWebViewClient()).waitForBeforeload = false;
+//
+//                // inAppWebView.loadUrl(url);
+//            }
+        });
+
+
 
         // myWebView.loadUrl("https://www.google.com");
 
