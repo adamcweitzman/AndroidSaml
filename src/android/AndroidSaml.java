@@ -43,15 +43,31 @@ public class AndroidSaml extends CordovaPlugin {
 
             WebView myWebView = new WebView(activityContext);
             setContentView(myWebView);
-            myWebView.loadUrl("https://www.google.com");
 
-            callbackContext.success(message + "coming from android");
 
-            WebView myWebView = new WebView(activityContext);
             myWebView.setLayoutParams(new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT));
             setContentView(myWebView);
+
+            mWebView.loadUrl("file:///android_asset/index.html");
+
+//            myWebView.loadUrl("https://www.google.com");
+//
+//
+//                    super.onCreate(savedInstanceState);
+//            setContentView(R.layout.activity_main);
+//            mWebView = findViewById(R.id.activity_main_webview);
+//        mWebView.setWebViewClient(new WebViewClient());
+//            WebSettings webSettings = mWebView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
+
+            // REMOTE RESOURCE
+            // mWebView.loadUrl("https://example.com");
+            // mWebView.setWebViewClient(new MyWebViewClient());
+
+            // LOCAL RESOURCE
+
 
 
 
