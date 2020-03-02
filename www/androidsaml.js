@@ -23,4 +23,4 @@ AndroidSaml.install = function() {
 };
 
 cordova.addConstructor(AndroidSaml.install);
-// module.exports = AndroidSaml;
+module.exports = AndroidSaml;
