@@ -1,12 +1,12 @@
 // Empty constructor
-var AndroidSaml = () => {};
+function AndroidSaml() {};
 
 // The function that passes work along to native shells
 // Message is a string, duration may be 'long' or 'short'
 AndroidSaml.echo = function(message, successCallback, errorCallback) {
   var options = {};
   options.message = message;
-  
+
   cordova.exec(successCallback, errorCallback, 'AndroidSaml', 'echo', [options]);
 
   return 'RETURNED FROM PLUGIN';
@@ -22,4 +22,5 @@ AndroidSaml.install = function() {
   return window.plugins.anroidSaml;
 };
 
-module.exports = AndroidSaml;
+cordova.addConstructor(AndroidSaml.install);
+// module.exports = AndroidSaml;
