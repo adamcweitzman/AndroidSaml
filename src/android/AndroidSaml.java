@@ -39,6 +39,13 @@ public class AndroidSaml extends CordovaPlugin {
     }
 
     private void echo(String message, CallbackContext callbackContext) {
+
+        if(message != null && message.length() > 0) {
+            callbackContext.success(message);
+        } else {
+            callbackContext.error(message);
+        }
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
