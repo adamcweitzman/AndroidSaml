@@ -46,47 +46,37 @@ public class AndroidSaml extends CordovaPlugin {
             callbackContext.error(message);
         }
 
-        this.cordova.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//                WebView myWebView = new WebView(activityContext);
-//                setContentView(myWebView);
-//                inAppWebView.setWebViewClient(currentClient);
-//
-//
-//                inAppWebView.setLayoutParams(new ViewGroup.LayoutParams(
-//                        ViewGroup.LayoutParams.MATCH_PARENT,
-//                        ViewGroup.LayoutParams.MATCH_PARENT));
-//
-////                setContentView(inAppWebView);
-//
-//                inAppWebView.loadUrl("file:///android_asset/index.html");
-
-//            myWebView.loadUrl("https://www.google.com");
-//
-//
-//                    super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
-//            mWebView = findViewById(R.id.activity_main_webview);
-//        mWebView.setWebViewClient(new WebViewClient());
-//            WebSettings webSettings = mWebView.getSettings();
-//        webSettings.setJavaScriptEnabled(true);
-
-                // REMOTE RESOURCE
-                // mWebView.loadUrl("https://example.com");
-                // mWebView.setWebViewClient(new MyWebViewClient());
-
-                // LOCAL RESOURCE
-
-
-
-
-
-
-
-
+//        this.cordova.getActivity().runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
+////                WebView myWebView = new WebView(activityContext);
+////                setContentView(myWebView);
+////                inAppWebView.setWebViewClient(currentClient);
+////
+////
+////                inAppWebView.setLayoutParams(new ViewGroup.LayoutParams(
+////                        ViewGroup.LayoutParams.MATCH_PARENT,
+////                        ViewGroup.LayoutParams.MATCH_PARENT));
+////
+//////                setContentView(inAppWebView);
+////
+////                inAppWebView.loadUrl("file:///android_asset/index.html");
+//
+////            myWebView.loadUrl("https://www.google.com");
+////
+////
+////                    super.onCreate(savedInstanceState);
+////            setContentView(R.layout.activity_main);
+////            mWebView = findViewById(R.id.activity_main_webview);
+////        mWebView.setWebViewClient(new WebViewClient());
+////            WebSettings webSettings = mWebView.getSettings();
+////        webSettings.setJavaScriptEnabled(true);
+//
+//                // REMOTE RESOURCE
+//                // mWebView.loadUrl("https://example.com");
+//                // mWebView.setWebViewClient(new MyWebViewClient());
+//
+//                // LOCAL RESOURCE
 //
 //
 //
@@ -95,14 +85,24 @@ public class AndroidSaml extends CordovaPlugin {
 //
 //
 //
-//                currentClient.waitForBeforeload = false;
-//                inAppWebView.setWebViewClient(currentClient);
-//
-//                // ((InAppBrowserClient)inAppWebView.getWebViewClient()).waitForBeforeload = false;
-//
-//                // inAppWebView.loadUrl(url);
-            }
-        });
+////            @Override
+////            public void run() {
+////
+////
+////
+////
+////
+////
+////
+////
+////                currentClient.waitForBeforeload = false;
+////                inAppWebView.setWebViewClient(currentClient);
+////
+////                // ((InAppBrowserClient)inAppWebView.getWebViewClient()).waitForBeforeload = false;
+////
+////                // inAppWebView.loadUrl(url);
+//            }
+//        });
 
 
 
