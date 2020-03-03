@@ -53,7 +53,7 @@ public class AndroidSaml extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mWebView = findViewById(R.id.activity_main_webview);
+                WebView mWebView = findViewById(R.id.activity_main_webview);
 //                mWebView.setWebViewClient(new WebViewClient());
 //                WebSettings webSettings = mWebView.getSettings();
 //                webSettings.setJavaScriptEnabled(true);
