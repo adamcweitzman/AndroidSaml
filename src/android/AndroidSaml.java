@@ -65,7 +65,7 @@ public class AndroidSaml extends CordovaPlugin {
 
 
             }
-        }
+        });
     }
 
 //NEXT TIME -->
