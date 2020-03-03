@@ -50,11 +50,15 @@ public class AndroidSaml extends CordovaPlugin {
             callbackContext.error(message);
         }
 
+        Context context= this.cordova.getActivity().getApplicationContext();
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                WebView mWebView = findViewById(R.id.activity_main_webview);
-//                mWebView.setWebViewClient(new WebViewClient());
+
+                WebView myWebView = new WebView(context);
+                setContentView(myWebView);
+
 //                WebSettings webSettings = mWebView.getSettings();
 //                webSettings.setJavaScriptEnabled(true);
 
