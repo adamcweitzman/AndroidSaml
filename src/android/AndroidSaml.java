@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -51,7 +52,9 @@ public class AndroidSaml extends CordovaPlugin {
             @Override
             public void run() {
 
-                WebView myWebView = new WebView(activityContext);
+                Context context = this.cordova.getActivity().getApplicationContext();
+
+                WebView myWebView = new WebView(context);
                 setContentView(myWebView);
 
                 myWebView.loadUrl("https://www.google.com");
