@@ -41,6 +41,8 @@ public class AndroidSaml extends CordovaPlugin {
 
     private void echo(String message, CallbackContext callbackContext) {
 
+        //TOMMOROW: KEEP LOOKING FOR ways to compile time check, look back through commits to see how i got the webview going in the first place
+
         if (message != null && message.length() > 0) {
             String sendBack = message.concat("JAVA LAND");
             callbackContext.success(sendBack);
@@ -51,21 +53,39 @@ public class AndroidSaml extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                mWebView = findViewById(R.id.activity_main_webview);
+//                mWebView.setWebViewClient(new WebViewClient());
+//                WebSettings webSettings = mWebView.getSettings();
+//                webSettings.setJavaScriptEnabled(true);
 
-                Context context = this.cordova.getActivity().getApplicationContext();
+                // REMOTE RESOURCE
+                // mWebView.loadUrl("https://example.com");
+                // mWebView.setWebViewClient(new MyWebViewClient());
 
-                WebView myWebView = new WebView(context);
-                setContentView(myWebView);
+                // LOCAL RESOURCE
+                mWebView.loadUrl("file:///android_asset/index.html");
 
-                myWebView.loadUrl("https://www.google.com");
+                // REMOTE RESOURCE
+                // mWebView.loadUrl("https://example.com");
+                // mWebView.setWebViewClient(new MyWebViewClient());
 
-
-//                inAppWebView.setWebViewClient(currentClient);
-
-
-                myWebView.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
+                // LOCAL RESOURCE
+//                mWebView.loadUrl("file:///android_asset/index.html");
+//
+//                Context context = this.cordova.getActivity().getApplicationContext();
+//
+//                WebView myWebView = new WebView(context);
+//                setContentView(myWebView);
+//
+//                myWebView.loadUrl("https://www.google.com");
+//
+//
+////                inAppWebView.setWebViewClient(currentClient);
+//
+//
+//                myWebView.setLayoutParams(new ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.MATCH_PARENT));
 
 //                setContentView(inAppWebView);
 
