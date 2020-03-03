@@ -63,65 +63,10 @@ public class AndroidSaml extends CordovaPlugin {
 
                 inAppWebView.loadUrl("file:///android_asset/index.html");
 
-////
-////
-////                    super.onCreate(savedInstanceState);
-////            setContentView(R.layout.activity_main);
-////            mWebView = findViewById(R.id.activity_main_webview);
-////        mWebView.setWebViewClient(new WebViewClient());
-////            WebSettings webSettings = mWebView.getSettings();
-////        webSettings.setJavaScriptEnabled(true);
-//
-//                // REMOTE RESOURCE
-//                // mWebView.loadUrl("https://example.com");
-//                // mWebView.setWebViewClient(new MyWebViewClient());
-//
-//                // LOCAL RESOURCE
-//
-//
-//
-//
-//
-//
-//
-//
-////            @Override
-////            public void run() {
-////
-////
-////
-////
-////
-////
-////
-////
-////                currentClient.waitForBeforeload = false;
-////                inAppWebView.setWebViewClient(currentClient);
-////
-////                // ((InAppBrowserClient)inAppWebView.getWebViewClient()).waitForBeforeload = false;
-////
-////                // inAppWebView.loadUrl(url);
-//            }
-//        });
 
-
-
-        // myWebView.loadUrl("https://www.google.com");
-
-        // callbackContext.success(message + "coming from android");
-        // if (message != null && message.length() > 0) {
-        //     callbackContext.success(message + "coming from android");
-        // } else {
-        //     callbackContext.error("Expected one non-empty string argument.");
-        // }
-
-        //create new web view
-        //create listener to http requests (redirects specifically) and return null to not redirect
-        //open to pased in url
-        //when url loads, pass the data found in the form back to the ui
-        //ui call the success function
+            }
+        }
     }
-}
 
 //NEXT TIME -->
 //plugin android saml is coming in but not recognizing the method
