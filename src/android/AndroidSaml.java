@@ -47,23 +47,22 @@ public class AndroidSaml extends CordovaPlugin {
             callbackContext.error(message);
         }
 
-//        this.cordova.getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-////                WebView myWebView = new WebView(activityContext);
-////                setContentView(myWebView);
-////                inAppWebView.setWebViewClient(currentClient);
-////
-////
-////                inAppWebView.setLayoutParams(new ViewGroup.LayoutParams(
-////                        ViewGroup.LayoutParams.MATCH_PARENT,
-////                        ViewGroup.LayoutParams.MATCH_PARENT));
-////
-//////                setContentView(inAppWebView);
-////
-////                inAppWebView.loadUrl("file:///android_asset/index.html");
-//
-////            myWebView.loadUrl("https://www.google.com");
+        this.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                WebView myWebView = new WebView(activityContext);
+//                setContentView(myWebView);
+                inAppWebView.setWebViewClient(currentClient);
+
+
+                inAppWebView.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+
+//                setContentView(inAppWebView);
+
+                inAppWebView.loadUrl("file:///android_asset/index.html");
+
 ////
 ////
 ////                    super.onCreate(savedInstanceState);
