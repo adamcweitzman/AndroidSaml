@@ -41,7 +41,7 @@ public class AndroidSaml extends CordovaPlugin {
     private void echo(String message, CallbackContext callbackContext) {
 
         if(message != null && message.length() > 0) {
-            String sendBack = message.concat("JAVA LAND")
+            String sendBack = message.concat("JAVA LAND");
             callbackContext.success(sendBack);
         } else {
             callbackContext.error(message);
