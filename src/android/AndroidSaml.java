@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -28,11 +29,13 @@ public class AndroidSaml extends CordovaPlugin {
 
     private WebView inAppWebView;
     private WebViewClient currentClient;
+    private String TAG = "AndroidSaml";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("echo")) {
             String message = args.getString(0);
+            Log.i(TAG, message);
             this.echo(message, callbackContext);
             return true;
         }
@@ -45,19 +48,28 @@ public class AndroidSaml extends CordovaPlugin {
 
         if (message != null && message.length() > 0) {
             String sendBack = message.concat("JAVA LAND");
-            callbackContext.success(sendBack);
+            callbackContext.success(message);
         } else {
             callbackContext.error(message);
         }
 
         Context context= this.cordova.getActivity().getApplicationContext();
 
+
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
-                WebView myWebView = new WebView(context);
-                setContentView(myWebView);
+                WebView inAppWebView = new WebView(cordova.getActivity());
+                inAppWebView.setWebViewClient(currentClient);
+
+                String url = message.replaceAll("\\\\|\\{|\\}|\"|message", "").replaceFirst(":", "");
+                Log.i(TAG, url);
+
+                inAppWebView.loadUrl("https://google.com");
+
+
+                //setContentView(myWebView);
 
 //                WebSettings webSettings = mWebView.getSettings();
 //                webSettings.setJavaScriptEnabled(true);
@@ -67,7 +79,7 @@ public class AndroidSaml extends CordovaPlugin {
                 // mWebView.setWebViewClient(new MyWebViewClient());
 
                 // LOCAL RESOURCE
-                mWebView.loadUrl("file:///android_asset/index.html");
+
 
                 // REMOTE RESOURCE
                 // mWebView.loadUrl("https://example.com");
