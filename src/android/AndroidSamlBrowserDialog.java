@@ -5,15 +5,15 @@ import android.content.Context;
 
 public class AndroidSamlBrowserDialog extends Dialog {
     Context context;
-    AndroidSamlBrowser androidSamlBrowser = null;
+    AndroidSaml androidSaml = null;
 
     public AndroidSamlBrowserDialog(Context context, int theme) {
         super(context, theme);
         this.context = context;
     }
 
-    public void setInAndroidSaml(AndroidSamlBrowser browser) {
-        this.androidSamlBrowser = browser;
+    public void setInAndroidSaml(AndroidSaml browser) {
+        this.androidSaml = browser;
     }
 
     public void onBackPressed () {
