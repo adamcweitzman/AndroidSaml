@@ -22,7 +22,7 @@ import android.widget.RelativeLayout;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class AndroidSamlBrowser extends CordovaPlugin {
+public class AndroidSaml extends CordovaPlugin {
 
     private AndroidSamlBrowserDialog dialog;
     private WebView inAppWebView;
