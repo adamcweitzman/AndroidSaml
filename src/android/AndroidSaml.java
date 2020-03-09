@@ -10,6 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +31,7 @@ import android.widget.RelativeLayout;
 public class AndroidSaml extends CordovaPlugin {
 
     private AndroidSamlBrowserDialog dialog;
-    private WebView inAppWebView;
+    private WebView myWebView;
     private WebChromeClient chromeClient;
     private WebViewClient currentClient;
     private CordovaWebView cordovaWebView;
@@ -46,7 +49,7 @@ public class AndroidSaml extends CordovaPlugin {
         } else if (action.equals("close")) {
             closeDialog();
         }
-        return false;
+        return true;
     }
 
     private int getAppResource(String name, String type) {
@@ -62,18 +65,26 @@ public class AndroidSaml extends CordovaPlugin {
 //            callbackContext.error(message);
 //        }
 
-        Context context= this.cordova.getActivity().getApplicationContext();
 
-        dialog = new AndroidSamlBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
-        dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        dialog.setCancelable(true);
-        dialog.setInAndroidSaml(this);
+//        dialog = new AndroidSamlBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
+//        dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        dialog.setCancelable(true);
+//        dialog.setInAndroidSaml(this);
 
+        AndroidSaml context = this;
         this.cordova.getActivity().runOnUiThread(new Runnable() {
+
             @Override
             public void run() {
+
+                dialog = new AndroidSamlBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
+                dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                dialog.setCancelable(true);
+                dialog.setInAndroidSaml(context);
 
                 LinearLayout main = new LinearLayout(cordova.getActivity());
                 main.setOrientation(LinearLayout.VERTICAL);
@@ -81,7 +92,7 @@ public class AndroidSaml extends CordovaPlugin {
                 final CordovaWebView thatWebView = webView;
                 currentClient = new AndroidSamlBrowserClient(thatWebView, callbackContext, dialog);
 
-                WebView myWebView = new WebView(cordova.getActivity());
+                myWebView = new WebView(cordova.getActivity());
                 myWebView.setWebViewClient(currentClient);
 
                 myWebView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -116,6 +127,18 @@ public class AndroidSaml extends CordovaPlugin {
                 dialog.show();
                 dialog.getWindow().setAttributes(lp);
 
+//                dialog.dismiss();
+
+//                closeDialog();
+
+//                Handler handler = new Handler(Looper.getMainLooper()) {
+//                    @Override
+//                    public void handleMessage(Message inputMessage) {
+//                        dialog.dismiss();
+//                    }
+//                };
+//
+//                handler.handleMessage(null);
             }
         });
     }
@@ -127,7 +150,8 @@ public class AndroidSaml extends CordovaPlugin {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final WebView childView = inAppWebView;
+                Log.i(TAG, "in close dialog");
+                final WebView childView = myWebView;
                 // The JS protects against multiple calls, so this should happen only when
                 // closeDialog() is called by other native code.
                 if (childView == null) {
@@ -143,6 +167,7 @@ public class AndroidSaml extends CordovaPlugin {
                         }
                     }
                 });
+
                 // NB: From SDK 19: "If you call methods on WebView from any thread
                 // other than your app's UI thread, it can cause unexpected results."
                 // http://developer.android.com/guide/webapps/migrating.html#Threads

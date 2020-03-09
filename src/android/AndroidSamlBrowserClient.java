@@ -12,6 +12,7 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.LOG;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.cordova.CordovaPlugin;
 
 public class AndroidSamlBrowserClient extends WebViewClient {
     private final AndroidSamlBrowserDialog dialog;
@@ -19,6 +20,7 @@ public class AndroidSamlBrowserClient extends WebViewClient {
     CallbackContext callbackContext;
     private String TAG = "AndroidSaml";
     AndroidSaml androidSaml;
+    Runnable runnableContext;
 
     public AndroidSamlBrowserClient(CordovaWebView webView, CallbackContext callbackContext, AndroidSamlBrowserDialog dialog) {
         this.webView = webView;
@@ -39,8 +41,6 @@ public class AndroidSamlBrowserClient extends WebViewClient {
                 Log.i(TAG, s);
                 callbackContext.success(s);
                 //dialog.dismiss();
-                //webView.handleDestroy();
-
             }
         });
     }
