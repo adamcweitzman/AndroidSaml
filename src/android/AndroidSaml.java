@@ -3,8 +3,11 @@ package com.adamweitzman.cordova.plugin;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.LOG;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.util.Log;
@@ -30,6 +33,8 @@ public class AndroidSaml extends CordovaPlugin {
     private WebViewClient currentClient;
     private CordovaWebView cordovaWebView;
     private String TAG = "AndroidSaml";
+    private CallbackContext callbackContext;
+    private static final String EXIT_EVENT = "exit";
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -38,6 +43,8 @@ public class AndroidSaml extends CordovaPlugin {
             Log.i(TAG, message);
             this.echo(message, callbackContext);
             return true;
+        } else if (action.equals("close")) {
+            closeDialog();
         }
         return false;
     }
@@ -87,14 +94,8 @@ public class AndroidSaml extends CordovaPlugin {
                 settings.setUseWideViewPort(true);
                 settings.setLoadWithOverviewMode(true);
 
-//                RelativeLayout webViewLayout = new RelativeLayout(cordova.getActivity());
-//                webViewLayout.addView(myWebView);
-//                main.addView(webViewLayout);
-
                 String url = message.replaceAll("\\\\|\\{|\\}|\"|message", "").replaceFirst(":", "");
                 Log.i(TAG, url);
-
-                //cordova.getActivity().setContentView(myWebView);
 
                 myWebView.loadUrl(url);
                 settings.setUseWideViewPort(true);
@@ -115,9 +116,72 @@ public class AndroidSaml extends CordovaPlugin {
                 dialog.show();
                 dialog.getWindow().setAttributes(lp);
 
-
-
             }
         });
+    }
+
+    /**
+     * Closes the dialog
+     */
+    public void closeDialog() {
+        this.cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final WebView childView = inAppWebView;
+                // The JS protects against multiple calls, so this should happen only when
+                // closeDialog() is called by other native code.
+                if (childView == null) {
+                    return;
+                }
+
+                childView.setWebViewClient(new WebViewClient() {
+                    // NB: wait for about:blank before dismissing
+                    public void onPageFinished(WebView view, String url) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                            dialog = null;
+                        }
+                    }
+                });
+                // NB: From SDK 19: "If you call methods on WebView from any thread
+                // other than your app's UI thread, it can cause unexpected results."
+                // http://developer.android.com/guide/webapps/migrating.html#Threads
+                childView.loadUrl("about:blank");
+
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("type", EXIT_EVENT);
+                    sendUpdate(obj, false);
+                } catch (JSONException ex) {
+                    LOG.d(TAG, "Should never happen");
+                }
+            }
+        });
+    }
+
+    /**
+     * Create a new plugin success result and send it back to JavaScript
+     *
+     * @param obj a JSONObject contain event payload information
+     */
+    private void sendUpdate(JSONObject obj, boolean keepCallback) {
+        sendUpdate(obj, keepCallback, PluginResult.Status.OK);
+    }
+
+    /**
+     * Create a new plugin result and send it back to JavaScript
+     *
+     * @param obj a JSONObject contain event payload information
+     * @param status the status code to return to the JavaScript environment
+     */
+    private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
+        if (callbackContext != null) {
+            PluginResult result = new PluginResult(status, obj);
+            result.setKeepCallback(keepCallback);
+            callbackContext.sendPluginResult(result);
+            if (!keepCallback) {
+                callbackContext = null;
+            }
+        }
     }
 }

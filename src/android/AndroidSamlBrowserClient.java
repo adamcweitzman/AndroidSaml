@@ -39,7 +39,7 @@ public class AndroidSamlBrowserClient extends WebViewClient {
                 Log.i(TAG, s);
                 callbackContext.success(s);
                 //dialog.dismiss();
-                webView.handleDestroy();
+                //webView.handleDestroy();
 
             }
         });

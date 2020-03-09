@@ -12,6 +12,15 @@ AndroidSaml.echo = function(message, successCallback, errorCallback) {
   return 'RETURNED FROM PLUGIN';
 }
 
+AndroidSaml.close = function(successCallback, errorCallback) {
+  var options = {};
+
+  cordova.exec(successCallback, errorCallback, 'AndroidSaml', 'close', [options]);
+
+  return 'RETURNED FROM PLUGIN';
+}
+
+
 
 // Installation constructor that binds ToastyPlugin to window
 AndroidSaml.install = function() {
