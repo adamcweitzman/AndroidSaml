@@ -58,21 +58,6 @@ public class AndroidSaml extends CordovaPlugin {
 
     private void echo(String message, CallbackContext callbackContext) {
 
-//        if (message != null && message.length() > 0) {
-//            String sendBack = message.concat("JAVA LAND");
-//            callbackContext.success(message);
-//        } else {
-//            callbackContext.error(message);
-//        }
-
-
-//        dialog = new AndroidSamlBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
-//        dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        dialog.setCancelable(true);
-//        dialog.setInAndroidSaml(this);
-
         AndroidSaml context = this;
         this.cordova.getActivity().runOnUiThread(new Runnable() {
 
@@ -105,7 +90,7 @@ public class AndroidSaml extends CordovaPlugin {
                 settings.setUseWideViewPort(true);
                 settings.setLoadWithOverviewMode(true);
 
-                String url = message.replaceAll("\\\\|\\{|\\}|\"|message", "").replaceFirst(":", "");
+                String url = message.replaceAll("\\\\|\\{|\\}|\"|message|", "").replaceFirst(":", "");
                 Log.i(TAG, url);
 
                 myWebView.loadUrl(url);
@@ -127,18 +112,6 @@ public class AndroidSaml extends CordovaPlugin {
                 dialog.show();
                 dialog.getWindow().setAttributes(lp);
 
-//                dialog.dismiss();
-
-//                closeDialog();
-
-//                Handler handler = new Handler(Looper.getMainLooper()) {
-//                    @Override
-//                    public void handleMessage(Message inputMessage) {
-//                        dialog.dismiss();
-//                    }
-//                };
-//
-//                handler.handleMessage(null);
             }
         });
     }
