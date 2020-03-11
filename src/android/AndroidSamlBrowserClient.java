@@ -4,8 +4,10 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Message;
 import android.util.Log;
+import android.webkit.ClientCertRequest;
 import android.webkit.ValueCallback;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -54,12 +56,27 @@ public class AndroidSamlBrowserClient extends WebViewClient {
     }
 
     @Override
-    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        //Prevents redirect from happening
-        return true;
+    public void onFormResubmission(WebView view, Message dontResend, Message resend) {
+        checkIfPageIsSaml(view, "ON FORM RESUBMISSION");
     }
 
-    private void checkIfPageIsSaml(WebView view, String eventName){
+    @Override
+    public void onReceivedClientCertRequest(WebView view, ClientCertRequest request) {
+        checkIfPageIsSaml(view, "ON RECEIVED CLIENT CERT REQUEST");
+    }
+
+    @Override
+    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+        checkIfPageIsSaml(view, "ON RECEIVED HTTP ERROR");
+    }
+
+//    @Override
+//    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+//        //Prevents redirect from happening
+//        return true;
+//    }
+
+    private void checkIfPageIsSaml(WebView view, String eventName) {
         view.evaluateJavascript("(function(){var el = document.getElementsByName(\"SAMLResponse\")[0]; return (el ? el.value : null);})()", new ValueCallback<String>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
