@@ -10,13 +10,9 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import androidx.annotation.RequiresApi;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaWebView;
-
-import java.util.Base64;
 
 public class AndroidSamlBrowserClient extends WebViewClient {
     private final AndroidSamlBrowserDialog dialog;
@@ -69,12 +65,6 @@ public class AndroidSamlBrowserClient extends WebViewClient {
     public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
         checkIfPageIsSaml(view, "ON RECEIVED HTTP ERROR");
     }
-
-//    @Override
-//    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-//        //Prevents redirect from happening
-//        return true;
-//    }
 
     private void checkIfPageIsSaml(WebView view, String eventName) {
         view.evaluateJavascript("(function(){var el = document.getElementsByName(\"SAMLResponse\")[0]; return (el ? el.value : null);})()", new ValueCallback<String>() {

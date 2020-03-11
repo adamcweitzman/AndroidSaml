@@ -15,18 +15,4 @@ public class AndroidSamlBrowserDialog extends Dialog {
     public void setInAndroidSaml(AndroidSaml browser) {
         this.androidSaml = browser;
     }
-
-    public void onBackPressed () {
-//        if (this.inAppBrowser == null) {
-//            this.dismiss();
-//        } else {
-//            // better to go through the in inAppBrowser
-//            // because it does a clean up
-//            if (this.inAppBrowser.hardwareBack() && this.inAppBrowser.canGoBack()) {
-//                this.inAppBrowser.goBack();
-//            }  else {
-//                this.inAppBrowser.closeDialog();
-//            }
-//        }
-    }
 }

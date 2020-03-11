@@ -25,9 +25,6 @@ import android.webkit.WebSettings;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-/**
- * This class echoes a string called from JavaScript.
- */
 public class AndroidSaml extends CordovaPlugin {
 
     private AndroidSamlBrowserDialog dialog;
@@ -50,10 +47,6 @@ public class AndroidSaml extends CordovaPlugin {
             closeDialog();
         }
         return true;
-    }
-
-    private int getAppResource(String name, String type) {
-        return cordova.getActivity().getResources().getIdentifier(name, type, cordova.getActivity().getPackageName());
     }
 
     private void echo(String message, CallbackContext callbackContext) {
@@ -140,31 +133,10 @@ public class AndroidSaml extends CordovaPlugin {
                     }
                 });
 
+                //SHOULD NOT HAPPEN: if child view dialog is null, load a blank page and continue running
                 childView.loadUrl("about:blank");
-
-                try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("type", EXIT_EVENT);
-                    sendUpdate(obj, false);
-                } catch (JSONException ex) {
-                    LOG.d(TAG, "Should never happen");
-                }
             }
         });
     }
 
-    private void sendUpdate(JSONObject obj, boolean keepCallback) {
-        sendUpdate(obj, keepCallback, PluginResult.Status.OK);
-    }
-
-    private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
-        if (callbackContext != null) {
-            PluginResult result = new PluginResult(status, obj);
-            result.setKeepCallback(keepCallback);
-            callbackContext.sendPluginResult(result);
-            if (!keepCallback) {
-                callbackContext = null;
-            }
-        }
-    }
 }
