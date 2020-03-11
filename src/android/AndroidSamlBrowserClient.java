@@ -1,5 +1,6 @@
 package com.adamweitzman.cordova.plugin;
 
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Message;
 import android.util.Log;
@@ -20,8 +21,6 @@ public class AndroidSamlBrowserClient extends WebViewClient {
     CordovaWebView webView;
     CallbackContext callbackContext;
     private String TAG = "AndroidSaml";
-    AndroidSaml androidSaml;
-    Runnable runnableContext;
 
     public AndroidSamlBrowserClient(CordovaWebView webView, CallbackContext callbackContext, AndroidSamlBrowserDialog dialog) {
         this.webView = webView;
@@ -31,59 +30,62 @@ public class AndroidSamlBrowserClient extends WebViewClient {
 
     @Override
     public void onPageFinished(WebView view, String url) {
-        view.loadUrl("javascript:" + "(function(){var el = document.getElementsByName(\"SAMLResponse\")[0]; return (el ? el.value : null);})()" );
+        checkIfPageIsSaml(view, "ON PAGE FINISHED");
+    }
 
-        view.evaluateJavascript("(function(){return window.document.body.innerHTML})();", new ValueCallback<String>() {
+    @Override
+    public void onLoadResource(WebView view, String url) {
+        checkIfPageIsSaml(view, "ON LOAD RESOURCE");
+    }
+
+    @Override
+    public void onPageCommitVisible(WebView view, String url) {
+        checkIfPageIsSaml(view, "ON PAGE COMMIT VISIBLE");
+    }
+
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        checkIfPageIsSaml(view, "ON PAGE STARTED");
+    }
+
+    @Override
+    public void onReceivedLoginRequest(WebView view, String realm, String account, String args) {
+        checkIfPageIsSaml(view, "ON RECEIVED LOGIN REQUEST");
+    }
+
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        //Prevents redirect from happening
+        return true;
+    }
+
+    private void checkIfPageIsSaml(WebView view, String eventName){
+        view.evaluateJavascript("(function(){var el = document.getElementsByName(\"SAMLResponse\")[0]; return (el ? el.value : null);})()", new ValueCallback<String>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onReceiveValue(String s) {
-                logLongString(s);
-                Log.i(TAG, "revieved value from page load: " + s);
-
-                boolean isToken = isAlphaNumeric(s);
-
-
-//                try {
-//                    Base64.Decoder decoder = Base64.getDecoder();
-//                    decoder.decode(s);
-//                    Log.i(TAG, s);
-//                    callbackContext.success(s);
-//                } catch (IllegalArgumentException ex) {
-//                    Log.i(TAG, "not a base 64 encoded string");
-//                }
-
-
-//                boolean isToken = Base64.isBase64(test);
-//
-//
-                Log.i(TAG, "matches: " + isToken);
-                if(isToken){
-                    Log.i(TAG, s);
-                    callbackContext.success(s);
+            public void onReceiveValue(String document) {
+                logLongString("Event captured, " + eventName + ": Checking if page is SAML: " + document);
+                if(!document.contains("null") && document != null) {
+                    boolean isToken = isBase64WithQuotes(document);
+                    if(isToken){
+                        Log.i(TAG, "Page is a valid Encrypted SAML Assertion");
+                        callbackContext.success(document);
+                    } else {
+                        Log.i(TAG, "Page is not valid SAML, skipping...");
+                    }
+                } else {
+                    Log.i(TAG, "Page is null, skipping...");
                 }
             }
         });
     }
 
-
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView webView, WebResourceRequest request) {
-        Log.i(TAG, "in should override url loading...");
-        return true;
-    }
-
-    @Override
-    public void onFormResubmission(WebView view, Message dontResend, Message resend) {
-        Log.i(TAG, "in form resubmission...");
-    }
-
-    public boolean isAlphaNumeric(String s){
-        Log.i(TAG, "Testing string: " + s);
+    private boolean isBase64WithQuotes(String s){
         String pattern= "^[a-zA-Z0-9+=\\/\"]*";
         return s.matches(pattern);
     }
 
-    public void logLongString(String str) {
+    private void logLongString(String str) {
         if(str.length() > 4000) {
             Log.i(TAG, str.substring(0, 4000));
             logLongString(str.substring(4000));

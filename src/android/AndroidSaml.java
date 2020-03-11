@@ -64,6 +64,7 @@ public class AndroidSaml extends CordovaPlugin {
             @Override
             public void run() {
 
+                //Create dialog
                 dialog = new AndroidSamlBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
                 dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -77,6 +78,7 @@ public class AndroidSaml extends CordovaPlugin {
                 final CordovaWebView thatWebView = webView;
                 currentClient = new AndroidSamlBrowserClient(thatWebView, callbackContext, dialog);
 
+                //Create webview
                 myWebView = new WebView(cordova.getActivity());
                 myWebView.setWebViewClient(currentClient);
 
@@ -90,6 +92,7 @@ public class AndroidSaml extends CordovaPlugin {
                 settings.setUseWideViewPort(true);
                 settings.setLoadWithOverviewMode(true);
 
+                //URL decode
                 String url = message.replaceAll("\\\\|\\{|\\}|\"|message|", "").replaceFirst(":", "");
                 Log.i(TAG, url);
 
@@ -116,17 +119,13 @@ public class AndroidSaml extends CordovaPlugin {
         });
     }
 
-    /**
-     * Closes the dialog
-     */
     public void closeDialog() {
         this.cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, "in close dialog");
+                Log.i(TAG, "Closing webview...");
                 final WebView childView = myWebView;
-                // The JS protects against multiple calls, so this should happen only when
-                // closeDialog() is called by other native code.
+
                 if (childView == null) {
                     return;
                 }
@@ -141,9 +140,6 @@ public class AndroidSaml extends CordovaPlugin {
                     }
                 });
 
-                // NB: From SDK 19: "If you call methods on WebView from any thread
-                // other than your app's UI thread, it can cause unexpected results."
-                // http://developer.android.com/guide/webapps/migrating.html#Threads
                 childView.loadUrl("about:blank");
 
                 try {
@@ -157,21 +153,10 @@ public class AndroidSaml extends CordovaPlugin {
         });
     }
 
-    /**
-     * Create a new plugin success result and send it back to JavaScript
-     *
-     * @param obj a JSONObject contain event payload information
-     */
     private void sendUpdate(JSONObject obj, boolean keepCallback) {
         sendUpdate(obj, keepCallback, PluginResult.Status.OK);
     }
 
-    /**
-     * Create a new plugin result and send it back to JavaScript
-     *
-     * @param obj a JSONObject contain event payload information
-     * @param status the status code to return to the JavaScript environment
-     */
     private void sendUpdate(JSONObject obj, boolean keepCallback, PluginResult.Status status) {
         if (callbackContext != null) {
             PluginResult result = new PluginResult(status, obj);
