@@ -1,7 +1,6 @@
 package com.adamweitzman.cordova.plugin;
-
+    
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Message;
 import android.util.Log;
 import android.webkit.ClientCertRequest;
@@ -10,9 +9,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import androidx.annotation.RequiresApi;
-import org.apache.cordova.CallbackContext;
+
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.CallbackContext;
+
+
+// TODO: 3/16/20 keep  going on adding everything needed for these too work imports then build
 
 public class AndroidSamlBrowserClient extends WebViewClient {
     private final AndroidSamlBrowserDialog dialog;
@@ -68,7 +70,6 @@ public class AndroidSamlBrowserClient extends WebViewClient {
 
     private void checkIfPageIsSaml(WebView view, String eventName) {
         view.evaluateJavascript("(function(){var el = document.getElementsByName(\"SAMLResponse\")[0]; return (el ? el.value : null);})()", new ValueCallback<String>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onReceiveValue(String document) {
                 logLongString("Event captured, " + eventName + ": Checking if page is SAML: " + document);
